@@ -35,7 +35,7 @@ To create a Source of data using the Toolkit, you'll need to use the `createSour
 
 If you are familiar with RxJS, you probably already know how to use the last three.
 
-Having to call `start()` manually may seem redundant, but as you'll see later, is convenient for creating Operators, which can simply pass it upwards.
+Having to call `start()` manually may seem redundant, but as you'll see later, it's convenient for creating Operators, which can simply pass it upwards.
 
 `start()` is also the only function that you are required to call in the Source, all other ones are entirely optional.
 
@@ -178,7 +178,7 @@ const take = (n) => (inputSource) =>
 
 ## Why should I use `callbag-toolkit`
 
-As powerful and effective as it is, the (`callbag`)[https://github.com/callbag/callbag] standard is unfortunately fairly low-level, and brings with it a relatively steep learning curve. I believe this is a significant barrer to entry and one of the reasons for why callbags have not become more popular, despite being superior in many ways to other stream/observable/iterable libraries.
+As powerful and effective as it is, the [`callbag`](https://github.com/callbag/callbag) standard is unfortunately fairly low-level, and brings with it a relatively steep learning curve. I believe this is a significant barrer to entry and one of the reasons for why callbags have not become more popular, despite being superior in many ways to other stream/observable/iterable libraries.
 
 The code of producers, consumers and operators implemented directly using the spec can be quite challenging to read and understand, and arguably makes it more likely to for subtle errors or ommissions in their implementation to occur.
 
@@ -220,7 +220,7 @@ In this case, the returned value is the clean-up function, which should be a con
 
 #### Consuming Sources (aka Sinks)
 
-Consider another example of a simple sink that mimics RxJS's `.subscribe()` functionality, (`callbag-observe`)[https://github.com/staltz/callbag-observe]:
+Consider another example of a simple sink that mimics RxJS's `.subscribe()` functionality, [`callbag-observe`](https://github.com/staltz/callbag-observe):
 
 ```js
 const observe = (operation) => (source) => {
@@ -236,7 +236,7 @@ And the equivalent implementation using the toolkit's ~20-line `createConsumer` 
 const observe = (operation) => createConsumer({ next: operation })
 ```
 
-Or a more intricate example, the (`callbag-for-each`)[https://github.com/staltz/callbag-for-each] sink:
+Or a more intricate example, the [`callbag-for-each`](https://github.com/staltz/callbag-for-each) sink:
 
 ```js
 const forEach = (operation) => (source) => {
@@ -321,7 +321,7 @@ const switchError = (getNewSource) => (inputSource) =>
             next,
             complete,
             // if this error is a result of a pull,
-            // we also need to pull on the new source as soon as it starts:
+            // we'll also want to pull on the new source as soon as it starts:
             start: pulling ? ({ pull }) => pull() : undefined,
             error,
           })
@@ -344,5 +344,5 @@ const switchError = (getNewSource) => (inputSource) =>
 
 The reasons are very pragmatic:
 
-- There is no way to verb "sink" in English, whereas "to consume" is the action that a "consumer" does, which makes docmentation and explanation easier.
-- Sinks are objects that drain liquids to the sewers, which doesn't suggest usefulness of the data flow, whereas consumption often means the act of providing vital sustenance - food is a key component enabling life, and analogously, data is a key component in enabling applications to function.
+- There is no way to verb "sink" in English, whereas "to consume" is the action that a "consumer" does, which makes documentation and explanation easier.
+- "Sinks" are objects that drain liquids to the sewers, which doesn't suggest usefulness of the data flowing to them, whereas "consumption" often means the act of providing vital sustenance - food is a key component enabling life, and analogously, data is a key component in enabling applications to function.

@@ -1,0 +1,56 @@
+{
+  "name": "callbag-toolkit",
+  "bugs": {
+    "url": "https://github.com/niieani/callbag-toolkit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niieani/callbag-toolkit.git"
+  },
+  "keywords": [
+    "callbag",
+    "callbags",
+    "observable",
+    "iterable",
+    "toolkit"
+  ],
+  "author": "Bazyli Brzoska <npm@invent.life> (https://invent.life)",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./esm/main.js",
+      "require": "./cjs/main.js"
+    },
+    "./*": {
+      "import": "./esm/*.js",
+      "require": "./cjs/*.js"
+    },
+    "./cjs": {
+      "require": "./cjs/main.js"
+    },
+    "./cjs/*": {
+      "require": "./cjs/*.js"
+    },
+    "./esm/*": {
+      "import": "./esm/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "cjs/main.js",
+  "module": "esm/main.js",
+  "source": "src/main.ts",
+  "scripts": {
+    "rrun": "rrun"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "callbag": "^1.5.0"
+  },
+  "devDependencies": {
+    "callbag-basics": "^4.0.0",
+    "callbag-of": "^2.0.1",
+    "callbag-pipe": "^1.2.0"
+  }
+}
