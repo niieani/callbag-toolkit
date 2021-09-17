@@ -1,5 +1,6 @@
 export type {
   Callbag,
+  CallbagArgs,
   Sink,
   Source,
   SourceFactory,

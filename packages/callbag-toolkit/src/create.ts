@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define,@typescript-eslint/no-unused-expressions,no-return-assign */
 
 import type {
+  CallbagArgs,
   ConsumerHandlers,
   Sink,
   Source,
@@ -45,14 +46,19 @@ export const createSource =
     const deactivate = () => state === 'active' && (state = 'inactive')
     const activate = () => state !== 'active' && (state = 'active')
     const markDisposed = () => state !== 'disposed' && (state = 'disposed')
+    let init: CallbagArgs<never, Out> | boolean = false
 
     /** talkback - sends messages back upstream */
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const upstream: Source<Out> = (...args) => {
       if (state === 'disposed') return
-      // got a request from the sink for the next value, let's process it
-      if (askToPull && args[0] === DATA) askToPull()
-      else if (dispose && args[0] === END) markDisposed() && dispose()
+      if (init) {
+        // got a request from the sink for the next value, let's process it
+        if (askToPull && args[0] === DATA) askToPull()
+        else if (dispose && args[0] === END) markDisposed() && dispose()
+      } else {
+        init = args
+      }
     }
 
     /** sink */
@@ -67,4 +73,6 @@ export const createSource =
 
     const dispose = typeof consumer === 'function' ? consumer : consumer?.stop
     const askToPull = typeof consumer === 'object' ? consumer?.pull : undefined
+    if (init) upstream(...init)
+    init = true
   }
