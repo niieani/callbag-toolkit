@@ -33,6 +33,32 @@ export const createConsumer =
     }
   }
 
+type SourceState = 'active' | 'disposed' | 'ended' | 'inactive'
+
+const assertActive = (state: SourceState, method: string) => {
+  if (state === 'active') return true
+  // eslint-disable-next-line no-console
+  console.error(
+    `This callbag source ${
+      state === 'disposed'
+        ? 'was previously disposed'
+        : state === 'ended'
+        ? 'has previously ended'
+        : 'has not been started'
+    }, but '${method}' was invoked.`,
+  )
+  return false
+}
+
+const assertInactive = (state: SourceState, method: string) => {
+  if (state !== 'active') return true
+  // eslint-disable-next-line no-console
+  console.error(
+    `This callbag source is already active, but '${method}' was invoked.`,
+  )
+  return false
+}
+
 export const createSource =
   <Out>(
     onConsume: (
@@ -42,20 +68,18 @@ export const createSource =
   (...args) => {
     if (args[0] !== START) return
 
-    let state: 'active' | 'disposed' | 'inactive' = 'inactive'
-    const deactivate = () => state === 'active' && (state = 'inactive')
-    const activate = () => state !== 'active' && (state = 'active')
+    let state: SourceState = 'inactive'
     const markDisposed = () => state !== 'disposed' && (state = 'disposed')
     let init: CallbagArgs<never, Out> | boolean = false
 
-    /** talkback - sends messages back upstream */
+    /** talkback: handle messages from the sink back to this source */
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const upstream: Source<Out> = (...args) => {
       if (state === 'disposed') return
       if (init) {
         // got a request from the sink for the next value, let's process it
         if (askToPull && args[0] === DATA) askToPull()
-        else if (dispose && args[0] === END) markDisposed() && dispose()
+        else if (args[0] === END) markDisposed() && dispose?.()
       } else {
         init = args
       }
@@ -65,10 +89,27 @@ export const createSource =
     const downstream = args[1]
 
     const consumer = onConsume({
-      start: () => void (activate() && downstream(START, upstream)),
-      next: (data: Out) => state === 'active' && void downstream(DATA, data),
-      error: (error: unknown) => void (deactivate() && downstream(END, error)),
-      complete: () => void (deactivate() && downstream(END)),
+      start: () => {
+        if (!assertInactive(state, 'start')) return
+        downstream(START, upstream)
+        state = 'active'
+      },
+      next: (data: Out) => {
+        if (!assertActive(state, 'next')) return
+        downstream(DATA, data)
+      },
+      error: (error: unknown) => {
+        // assert, but passthrough errors so that clean-up may take place
+        assertActive(state, 'error')
+        downstream(END, error)
+        state = 'ended'
+      },
+      complete: () => {
+        // assert, but passthrough errors so that clean-up may take place
+        assertActive(state, 'complete')
+        downstream(END)
+        state = 'ended'
+      },
     })
 
     const dispose = typeof consumer === 'function' ? consumer : consumer?.stop
