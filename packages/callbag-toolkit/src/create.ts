@@ -66,7 +66,7 @@ export const createSource =
 
     const consumer = onConsume({
       start: () => void (activate() && downstream(START, upstream)),
-      next: (data: Out) => state === void ('active' && downstream(DATA, data)),
+      next: (data: Out) => state === 'active' && void downstream(DATA, data),
       error: (error: unknown) => void (deactivate() && downstream(END, error)),
       complete: () => void (deactivate() && downstream(END)),
     })
