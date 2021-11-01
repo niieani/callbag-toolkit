@@ -1318,16 +1318,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@beemo/config-constants-patched@patch:@beemo/config-constants@1.0.2#./patches/@beemo+config-constants.patch::locator=%40niieani%2Fscaffold%40npm%3A1.3.3":
+"@beemo/config-constants-patched@patch:@beemo/config-constants@1.0.2#./patches/@beemo+config-constants.patch::locator=%40niieani%2Fscaffold%40npm%3A1.3.4":
   version: 1.0.2
-  resolution: "@beemo/config-constants-patched@patch:@beemo/config-constants@npm%3A1.0.2#./patches/@beemo+config-constants.patch::version=1.0.2&hash=e1eca2&locator=%40niieani%2Fscaffold%40npm%3A1.3.3"
+  resolution: "@beemo/config-constants-patched@patch:@beemo/config-constants@npm%3A1.0.2#./patches/@beemo+config-constants.patch::version=1.0.2&hash=e1eca2&locator=%40niieani%2Fscaffold%40npm%3A1.3.4"
   checksum: cbf8478293c2c7cacc7a1c2ef047e10babccb97fb9dd8cefe9abf9709ae9b8d251325a1a4231d3270eec305be3e245d1f2ccbf86f44eb29e77e9c07c557eb6cc
   languageName: node
   linkType: hard
 
-"@beemo/config-constants-patched@patch:@beemo/config-constants@npm%3A1.0.2#./patches/@beemo+config-constants.patch::locator=eslint-config-niieani%40npm%3A1.0.4":
+"@beemo/config-constants-patched@patch:@beemo/config-constants@npm%3A1.0.2#./patches/@beemo+config-constants.patch::locator=eslint-config-niieani%40npm%3A1.0.5":
   version: 1.0.2
-  resolution: "@beemo/config-constants-patched@patch:@beemo/config-constants@npm%3A1.0.2#./patches/@beemo+config-constants.patch::version=1.0.2&hash=e1eca2&locator=eslint-config-niieani%40npm%3A1.0.4"
+  resolution: "@beemo/config-constants-patched@patch:@beemo/config-constants@npm%3A1.0.2#./patches/@beemo+config-constants.patch::version=1.0.2&hash=e1eca2&locator=eslint-config-niieani%40npm%3A1.0.5"
   checksum: cbf8478293c2c7cacc7a1c2ef047e10babccb97fb9dd8cefe9abf9709ae9b8d251325a1a4231d3270eec305be3e245d1f2ccbf86f44eb29e77e9c07c557eb6cc
   languageName: node
   linkType: hard
@@ -2162,9 +2162,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@niieani/scaffold@npm:1.3.3, @niieani/scaffold@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "@niieani/scaffold@npm:1.3.3"
+"@niieani/scaffold@npm:1.3.4, @niieani/scaffold@npm:^1.3.4":
+  version: 1.3.4
+  resolution: "@niieani/scaffold@npm:1.3.4"
   dependencies:
     "@babel/core": ^7.15.5
     "@babel/preset-env": ^7.15.6
@@ -2187,7 +2187,7 @@ __metadata:
     "@vitejs/plugin-react-refresh": ^1.3.6
     commitlint: ^13.1.0
     eslint: ^7.32.0
-    eslint-config-niieani: 1.0.4
+    eslint-config-niieani: 1.0.5
     eslint-plugin-eslint-comments: ^3.2.0
     husky: ^7.0.2
     jest: ^27.1.1
@@ -2207,7 +2207,7 @@ __metadata:
   bin:
     beemo: bin/beemo.js
     rrun: bin/rrun.js
-  checksum: e74ecb2dce16708d35f48a92e0b2dd9854cfacdd5838eaaf78a40a4cd32b7096233e428176cf0454c92d04dc1a33593944a39a3c3113e6e17c2641de4b7367be
+  checksum: 2ff34c2431433cefc68484fc74018b5407cc04634fbc9948195c64d38475a9b7b95b984cef68964d5a285dd1be89542003975edf9c228d6bfbcb09cf30147fa0
   languageName: node
   linkType: hard
 
@@ -4280,7 +4280,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "callbag-toolkit-monorepo@workspace:."
   dependencies:
-    "@niieani/scaffold": ^1.3.3
+    "@niieani/scaffold": ^1.3.4
   languageName: unknown
   linkType: soft
 
@@ -5671,12 +5671,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-niieani@npm:1.0.4":
-  version: 1.0.4
-  resolution: "eslint-config-niieani@npm:1.0.4"
+"eslint-config-niieani@npm:1.0.5":
+  version: 1.0.5
+  resolution: "eslint-config-niieani@npm:1.0.5"
   dependencies:
     "@beemo/config-constants-patched": "patch:@beemo/config-constants@npm%3A1.0.2#./patches/@beemo+config-constants.patch"
-    "@niieani/scaffold": 1.3.3
+    "@niieani/scaffold": 1.3.4
     "@typescript-eslint/eslint-plugin": ^4.31.0
     "@typescript-eslint/parser": ^4.31.0
     eslint-config-airbnb-base: ^14.2.1
@@ -5694,7 +5694,7 @@ __metadata:
     eslint-plugin-unicorn: ^36.0.0
   peerDependencies:
     eslint: ">=7.0.0"
-  checksum: 4ed229818778e65aa5d3bb604f8e50c0edfc50d244ec84ca72b5672988edf0860b341804c6f0b44379dca41e5594656e838dfc5dd46f99f54a794b7dca6ddf8b
+  checksum: 26131e7140f07a51277bc6a842dbee28e28952b0c1ab6b64cb39aba0d943d3e032b2ee38cc9e8d32575060b931cbd08eb47e1ec7f71c785764a02f593acf4c2e
   languageName: node
   linkType: hard
 
