@@ -1,7 +1,7 @@
 import { concat, fromIter, fromPromise } from 'callbag-basics'
 import of from 'callbag-of'
 import pipe from 'callbag-pipe'
-import { consumeSource } from './consume'
+import { consumeSource, consumeSynchronously } from './consume'
 import { createSource } from './create'
 import type { Source } from './types'
 
@@ -81,6 +81,13 @@ const switchError =
       }
     })
 
+const sequence = (length: number) =>
+  createSource<number>(({ next, start, complete }) => {
+    start()
+    Array.from({ length }).forEach((_, index) => void next(index))
+    complete()
+  })
+
 const nextTick = () =>
   new Promise((resolve) => {
     setTimeout(resolve)
@@ -95,7 +102,7 @@ describe(`callbag-toolkit`, () => {
   })
 
   it(`should emit and transform values and complete correctly`, () => {
-    const intervalMs = 1000
+    const intervalMs = 1_000
     const source = pipe(interval(intervalMs), multiplyBy(2), take(10))
     const next = jest.fn<void, [number]>()
     const complete = jest.fn<void, []>()
@@ -141,7 +148,6 @@ describe(`callbag-toolkit`, () => {
 describe(`switchError`, () => {
   const myError = new Error('error')
   const rejectedPromise = Promise.reject(myError)
-  // eslint-disable-next-line promise/prefer-await-to-then
   void rejectedPromise.catch(() => {})
 
   it(`should switch to a new source upon error`, async () => {
@@ -244,5 +250,30 @@ describe(`switchError`, () => {
     )
 
     expect(end).toHaveBeenCalledTimes(1)
+  })
+
+  it(`should consume synchronously`, () => {
+    const source = sequence(10)
+    const result = consumeSynchronously(source)
+    expect(result).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+  })
+
+  it(`should transform as synchronous input`, () => {
+    const source = sequence(10)
+    const transformedSource = createSource<number>(
+      ({ next, start, complete, error }) => {
+        const consumption = consumeSource(source, {
+          start,
+          complete,
+          error,
+          next: (input) => {
+            next(input * 100)
+          },
+        })
+        return consumption
+      },
+    )
+    const result = consumeSynchronously(transformedSource)
+    expect(result).toEqual([0, 100, 200, 300, 400, 500, 600, 700, 800, 900])
   })
 })

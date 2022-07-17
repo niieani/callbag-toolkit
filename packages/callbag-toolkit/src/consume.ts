@@ -85,9 +85,8 @@ export const consumeSynchronously = <In>(source: Source<In>): In[] => {
     )
   }
 
-  consumptionManagement.stop()
-
   if (!didComplete) {
+    consumptionManagement.stop()
     throw new Error(
       `Could not consume, because the source never completed synchronously.`,
     )
