@@ -7,7 +7,7 @@ export type {
   SourceOperator,
   UnwrapSink,
   UnwrapSource, // https://github.com/import-js/eslint-plugin-import/issues/2132
-} from 'callbag' // eslint-disable-line import/no-unresolved
+} from 'callbag'
 
 export const START = 0
 export const DATA = 1
