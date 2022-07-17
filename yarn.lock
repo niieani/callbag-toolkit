@@ -5052,7 +5052,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "callbag-toolkit@workspace:packages/callbag-toolkit"
   dependencies:
-    callbag: ^1.5.1
+    callbag: ^1.5
     callbag-basics: ^4.0.0
     callbag-of: ^2.0.1
     callbag-pipe: ^1.2.0
@@ -5066,7 +5066,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"callbag@npm:^1.5.1":
+"callbag@npm:^1.5":
   version: 1.5.1
   resolution: "callbag@npm:1.5.1"
   checksum: adc52e3d10a45f9b5354b145cf7207c13e71cd648c3b93c7a6bc8fbe70c8b81aa728ac64a937064eea5377ad0e487f097fe70027f2b8db0c0233ac67d503bbd1
