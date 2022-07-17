@@ -16,25 +16,21 @@
     ]
   },
   "scripts": {
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "yarn foreach-run tsc --outDir cjs --declarationDir cjs --module commonjs --target es6",
+    "build:esm": "yarn foreach-run tsc --outDir esm --declarationDir esm --module esnext --target es6",
+    "clean": "git clean -dfX --exclude=node_modules packages && beemo typescript:sync-project-refs",
+    "foreach-run": "PATH=\"$PWD/node_modules/.bin:$PATH\" yarn workspaces foreach --parallel --interlaced --topological --topological-dev --verbose run rrun",
+    "format": "yarn foreach-run prettier --write \"./{src,tests,.config}/**/!(*.d).{.js,jsx,ts,tsx,json,md}\"",
     "postinstallDev": "yarn prepare",
     "prepare": "rrun husky install .config/husky && beemo create-config && beemo typescript:sync-project-refs",
-    "format": "yarn foreach-run prettier --write \"./{src,tests}/**/*.{js,json,md}\"",
-    "foreach-run": "PATH=\"$PWD/node_modules/.bin:$PATH\" yarn workspaces foreach --parallel --interlaced --topological --topological-dev --verbose run rrun",
-    "build": "yarn build:cjs && yarn build:esm",
     "release": "beemo run-script release",
-    "build:cjs": "yarn foreach-run tsc --outDir cjs --module commonjs --target es6",
-    "build:esm": "yarn foreach-run tsc --outDir esm --module esnext --target es6",
-    "clean": "git clean -dfX --exclude=node_modules packages && beemo typescript:sync-project-refs",
-    "test:lint": "rrun eslint 'packages/*/src/**'",
-    "test:code": "beemo jest",
-    "test:types": "yarn foreach-run tsc --noEmit",
-    "test:format": "yarn foreach-run prettier --check \"./{src,tests}/**/*[!.d].{.js,jsx,ts,tsx,json,md}\"",
-    "test": "yarn test:format && yarn test:types && yarn test:lint && yarn test:code"
+    "test": "yarn test:format && yarn test:types && yarn test:lint && yarn test:code",
+    "test:code": "rrun jest",
+    "test:format": "yarn foreach-run prettier --check \"./{src,tests,.config}/**/!(*.d).{.js,jsx,ts,tsx,json,md}\"",
+    "test:lint": "rrun eslint 'packages/*/src/**/*.{js,jsx,ts,tsx}'",
+    "test:types": "yarn foreach-run tsc --noEmit"
   },
-  "devDependencies": {
-    "@niieani/scaffold": "^1.3.4"
-  },
-  "packageManager": "yarn@3.1.1",
   "release": {
     "branches": [
       "+([0-9])?(.{+([0-9]),x}).x",
@@ -53,5 +49,9 @@
         "prerelease": true
       }
     ]
-  }
+  },
+  "devDependencies": {
+    "@niieani/scaffold": "^1.5.9"
+  },
+  "packageManager": "yarn@3.1.1"
 }

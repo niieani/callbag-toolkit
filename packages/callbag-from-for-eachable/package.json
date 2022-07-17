@@ -12,20 +12,25 @@
   "exports": {
     ".": {
       "import": "./esm/main.js",
-      "require": "./cjs/main.js"
+      "require": "./cjs/main.js",
+      "types": "./src/main.ts"
     },
     "./*": {
       "import": "./esm/*.js",
-      "require": "./cjs/*.js"
+      "require": "./cjs/*.js",
+      "types": "./src/*.ts"
     },
     "./cjs": {
-      "require": "./cjs/main.js"
+      "require": "./cjs/main.js",
+      "types": "./src/main.ts"
     },
     "./cjs/*": {
-      "require": "./cjs/*.js"
+      "require": "./cjs/*.js",
+      "types": "./src/*.ts"
     },
     "./esm/*": {
-      "import": "./esm/*.js"
+      "import": "./esm/*.js",
+      "types": "./src/*.ts"
     },
     "./package.json": "./package.json"
   },
