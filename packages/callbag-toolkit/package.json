@@ -57,5 +57,10 @@
     "callbag-basics": "^4.0.0",
     "callbag-of": "^2.0.1",
     "callbag-pipe": "^1.2.0"
-  }
+  },
+  "files": [
+    "cjs",
+    "esm",
+    "src"
+  ]
 }
