@@ -51,7 +51,7 @@
     ]
   },
   "devDependencies": {
-    "@niieani/scaffold": "^1.5.9"
+    "@niieani/scaffold": "^1.5.22"
   },
   "packageManager": "yarn@3.1.1"
 }
