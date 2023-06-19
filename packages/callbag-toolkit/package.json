@@ -51,7 +51,7 @@
     "access": "public"
   },
   "dependencies": {
-    "callbag": "^1.5"
+    "callbag": "^1.5.1"
   },
   "devDependencies": {
     "callbag-basics": "^4.0.0",
